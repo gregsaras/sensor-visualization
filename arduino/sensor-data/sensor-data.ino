@@ -3,6 +3,8 @@
 
 #include "config.h";
 
+int status = WL_IDLE_STATUS;
+
 void setup() {
   Serial.begin(9600);
   while(!Serial) { ; }
@@ -14,7 +16,21 @@ void setup() {
     Serial.println("Successfully detected WiFi module");
   }
 
-  printFirmwareInformation(); 
+  printFirmwareInformation();
+
+  Serial.print("Starting connection to SSID: ");
+  Serial.println(SSID);
+
+  connectToWiFi();
+  if(!is_connectedToWiFi()) {
+    Serial.print("Failed to connect to SSID: ");
+    Serial.println(SSID);
+
+    while(true);
+  } else {
+    Serial.print("Successfully connected to SSID: ");
+    Serial.println(SSID);
+  }
 }
 
 void loop() {
@@ -36,6 +52,19 @@ void printFirmwareInformation(){
     Serial.println("Firmware up to date");
   }
 
-   Serial.println("Current Version: ");
+   Serial.print("Current Version: ");
    Serial.println(fv);  
+}
+
+void connectToWiFi() {
+  int attemptsLeft = 3;
+  while(status != WL_CONNECTED && attemptsLeft > 0) {
+    status = WiFi.begin(SSID, PASS);
+    attemptsLeft--;
+    delay(10000);
+  }
+}
+
+boolean is_connectedToWiFi() {
+  return status == WL_CONNECTED;
 }
