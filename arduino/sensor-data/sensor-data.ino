@@ -1,6 +1,8 @@
 #include <SPI.h>
 #include <WiFiNINA.h>
 
+#include "config.h";
+
 void setup() {
   Serial.begin(9600);
   while(!Serial) { ; }
@@ -14,28 +16,7 @@ void setup() {
 }
 
 void loop() {
-  Serial.println("Scanning available networks");
-  listNetworks();
+  Serial.println("Connecting to WiFi network: ");
+  Serial.println(SSID);
   delay(10000);
-}
-
-void listNetworks() {
-  Serial.println("** Scan Networks **");
-  int numSsid = WiFi.scanNetworks();
-  if(numSsid == -1) {
-    Serial.println("Could reach any WiFi networks");
-    while(true);
-  }
-
-  for(int thisNet = 0; thisNet < numSsid; thisNet++) {
-    Serial.print(thisNet);
-    Serial.print(") ");
-    Serial.print(WiFi.SSID(thisNet));
-    Serial.print("\tSignal: ");
-    Serial.print(WiFi.RSSI(thisNet));
-    Serial.print(" dBm");
-    Serial.print("\tEncryption: ");
-    Serial.print(WiFi.encryptionType(thisNet));
-    Serial.print("\n");
-  }
 }
