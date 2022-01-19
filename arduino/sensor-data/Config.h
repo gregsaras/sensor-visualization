@@ -1,7 +1,7 @@
 #ifndef Config_h
 #define Config_h
 
-char SSID[] = "YOUR SSID HERE"
-char PASS[] = "YOUR PASSWORD HERE"
+char SSID[] = "SSID HERE";
+char PASS[] = "SSID PASSWORD HERE";
 
 #endif

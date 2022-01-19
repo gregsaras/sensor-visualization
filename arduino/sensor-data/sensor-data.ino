@@ -34,9 +34,14 @@ void setup() {
 }
 
 void loop() {
-  Serial.println("Connecting to WiFi network: ");
-  Serial.println(SSID);
-  delay(10000);
+  static const uint8_t analog_pins[] = { A0, A1, A2, A3, A4, A5 }; // all analog pins (WiFi Rev2)
+  static const int sensorCount = 5; // sensors that are connected, assumes that you go from A0-A5 in that order
+
+  for(int i = 0; i < sensorCount; i++){
+    Serial.println(analogRead(analog_pins[i]));
+  }
+  
+  delay(1000);
 }
 
 boolean has_WiFiModule() {
