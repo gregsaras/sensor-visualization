@@ -12,3 +12,5 @@ Project to visualize data from various sensors (temperature, moisture, etc)
 - Open the Config.h file and add your own WiFi SSID and password here.
 
 * This only covers local development, if you are using the web editor you are on your own.
+
+## API Information
